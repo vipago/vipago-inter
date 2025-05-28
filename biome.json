@@ -1,0 +1,60 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"defaultBranch": "main",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"ignoreUnknown": false,
+		"ignore": []
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab",
+		"formatWithErrors": true,
+		"useEditorconfig": true,
+		"lineWidth": 160,
+		"indentWidth": 4,
+		"lineEnding": "lf",
+		"ignore": ["dist/*", "*.db", "*.lockb", "node_modules/", "tsconfig.base.json"]
+	},
+	"organizeImports": {
+		"enabled": true,
+		"ignore": ["dist/*", "*.db", "*.lockb", "node_modules/", "tsconfig.base.json"]
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"correctness": {
+				"noUnusedImports": "warn"
+			},
+			"style": {
+				"noNonNullAssertion": "off",
+				"noCommaOperator": "error",
+				"useConst": "warn",
+				"useAsConstAssertion": "warn",
+				"useForOf": "warn",
+				"noParameterAssign": "off",
+				"useNamingConvention": "off",
+				"useTemplate": "info"
+			},
+			"suspicious": {
+				"noControlCharactersInRegex": "off",
+				"noExplicitAny": "info",
+				"noAssignInExpressions": "info"
+			}
+		},
+		"ignore": ["dist/*", "*.db", "*.lockb", "node_modules/", "tsconfig.base.json"]
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "double",
+			"semicolons": "always",
+			"trailingCommas": "all",
+			"arrowParentheses": "asNeeded"
+		}
+	}
+}
