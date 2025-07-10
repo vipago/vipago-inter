@@ -1,9 +1,9 @@
 import { Cache, Effect, Layer, Redacted, Schema } from "effect";
+import type { ParseError } from "effect/ParseResult";
 import type { InterConfig } from "$models/config";
+import { InterOAuthResponseJSON } from "$models/oauth";
 import type { HttpsRequestError } from "./httpRequest";
 import { httpsRequestEffect } from "./httpRequest";
-import type { ParseError } from "effect/ParseResult";
-import { InterOAuthResponseJSON } from "$models/oauth";
 import { InterBaseConfig } from "./interBaseConfig";
 
 const DEFAULT_ROUTE = "/oauth/v2/token";

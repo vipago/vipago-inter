@@ -1,6 +1,6 @@
 import { FileSystem } from "@effect/platform/FileSystem";
 import { Config, ConfigProvider, Context, Effect, Layer, pipe, Redacted } from "effect";
-import type { InterOptions, InterConfig } from "$models/config";
+import type { InterConfig, InterOptions } from "$models/config";
 
 export namespace InterBaseConfig {
 	export class Tag extends Context.Tag("bancointer/InterConfig")<Tag, InterConfig>() {}

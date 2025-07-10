@@ -1,12 +1,12 @@
 import { routeWithResponse, routeWithResponseAndParam } from "internal/httpClient";
-import { BASE_ROUTE, withSandboxVerification } from "./utils";
 import {
 	ConsultarCobrancaResponseSchema,
+	type CriarCobrancaRequestSchema,
 	CriarCobrancaResponseSchema,
 	type PagarPixCobrancaRequestSchema,
 	PagarPixCobrancaResponseSchema,
-	type CriarCobrancaRequestSchema,
 } from "$models/api-pix/cobranca";
+import { BASE_ROUTE, withSandboxVerification } from "./utils";
 
 /**
  * Cria uma nova cobrança PIX imediata.

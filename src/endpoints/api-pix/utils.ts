@@ -1,12 +1,12 @@
-import { InterBaseConfig } from "$structures/interBaseConfig";
 import { Effect } from "effect";
+import { InterBaseConfig } from "$structures/interBaseConfig";
 
 /** @internal **/
 export const BASE_ROUTE = "/pix/v2";
 
 /** @internal */
 export const withSandboxVerification =
-	<Args extends any[], R, E, D>(routeFn: (...args: Args) => Effect.Effect<R, E, D>) =>
+	<Args extends unknown[], R, E, D>(routeFn: (...args: Args) => Effect.Effect<R, E, D>) =>
 	(...args: Args) =>
 		Effect.gen(function* () {
 			const config = yield* InterBaseConfig.Tag;

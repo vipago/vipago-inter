@@ -1,17 +1,17 @@
 {
-    "[typescript]": {
-        "editor.defaultFormatter": "biomejs.biome"
-    },
-    "files.autoSave": "onFocusChange",
-    "editor.formatOnSave": true,
-    "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/.DS_Store": true,
-        "**/Thumbs.db": true
-    },
-    "explorer.fileNesting.enabled": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"files.autoSave": "onFocusChange",
+	"editor.formatOnSave": true,
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true
+	},
+	"explorer.fileNesting.enabled": true,
 	"explorer.fileNesting.patterns": {
 		"*.ts": "${capture}.js",
 		"*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
@@ -20,5 +20,5 @@
 		"tsconfig.json": "tsconfig.*.json",
 		"package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock",
 		".envrc": ".env"
-	},
+	}
 }

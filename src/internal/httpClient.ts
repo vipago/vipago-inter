@@ -1,8 +1,10 @@
+// biome-ignore-all lint/suspicious/noExplicitAny : Any is used here to allow flexibility in request and response types.
+
+import { Effect, Redacted, Schema } from "effect/index";
 import { InterAPIError, InterAPIErrorSchema } from "$models/error";
-import { httpsRequestEffect, HttpsRequestError } from "$structures/httpRequest";
+import { HttpsRequestError, httpsRequestEffect } from "$structures/httpRequest";
 import { InterBaseConfig } from "$structures/interBaseConfig";
 import { getGlobalOAuthToken } from "$structures/interOAuth";
-import { Effect, Redacted, Schema } from "effect/index";
 
 /** @internal **/
 export const routeWithResponse =
@@ -30,7 +32,9 @@ export const routeWithResponse =
 			const uri = URL.parse(url, config.base_url);
 
 			if (uri === null) {
-				return yield* new HttpsRequestError({ cause: new Error(`Invalid URL: ${url}`) });
+				return yield* new HttpsRequestError({
+					cause: new Error(`Invalid URL: ${url}`),
+				});
 			}
 
 			return yield* httpsRequestEffect(method, uri.toString(), body, config.certificate.pipe(Redacted.value), config.privKey.pipe(Redacted.value), {
@@ -39,9 +43,10 @@ export const routeWithResponse =
 				Effect.catchIf(
 					err => err._tag === "bancointer/HttpsRequestError" && Boolean(err.response),
 					err =>
-						Schema.decode(Schema.parseJson(InterAPIErrorSchema))(err.response!.responseBody).pipe(
-							Effect.andThen(res => Effect.fail(new InterAPIError(res))),
-						),
+						Schema.decode(Schema.parseJson(InterAPIErrorSchema))(
+							// biome-ignore lint/style/noNonNullAssertion: This is safe because we check for response existence
+							err.response!.responseBody,
+						).pipe(Effect.andThen(res => Effect.fail(new InterAPIError(res)))),
 				),
 				Effect.andThen(res => res.responseBody),
 				Effect.andThen(res => Schema.decode(Schema.parseJson(responseSchema))(res)),
