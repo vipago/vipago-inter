@@ -28,7 +28,7 @@ export namespace InterBaseConfig {
 					privKey: Redacted.make(yield* makeTLSConfig(options.priv_key)),
 					client_id: options.client_id,
 					client_secret: Redacted.make(options.client_secret),
-					base_url: options.base_url ?? (options.sandbox ? " https://cdpj-sandbox.partners.uatinter.co" : "https://cdpj.partners.bancointer.com.br"),
+					base_url: options.base_url ?? (options.sandbox ? "https://cdpj-sandbox.partners.uatinter.co" : "https://cdpj.partners.bancointer.com.br"),
 					sandbox: Boolean(options.sandbox),
 					scope: options.scope,
 				};
