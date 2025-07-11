@@ -3,7 +3,7 @@
 import { Effect, Redacted, Schema } from "effect/index";
 import { InterAPIError, InterAPIErrorSchema } from "$models/error";
 import { HttpsRequestError, httpsRequestEffect } from "$structures/httpRequest";
-import { InterBaseConfig } from "$structures/interBaseConfig";
+import { InterConfig } from "$structures/interConfig";
 import { getGlobalOAuthToken } from "$structures/interOAuth";
 
 /** @internal **/
@@ -25,7 +25,7 @@ export const routeWithResponse =
 				}
 			}
 
-			const config = yield* InterBaseConfig.Tag;
+			const config = yield* InterConfig.Tag;
 
 			const token = yield* getGlobalOAuthToken;
 

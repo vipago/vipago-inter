@@ -1,9 +1,29 @@
 import { FileSystem } from "@effect/platform/FileSystem";
 import { Config, ConfigProvider, Context, Effect, Layer, pipe, Redacted } from "effect";
-import type { InterConfig, InterOptions } from "$models/config";
+import type { InterOAuthScopeType } from "$models/oauth";
 
-export namespace InterBaseConfig {
+export namespace InterConfig {
 	export class Tag extends Context.Tag("bancointer/InterConfig")<Tag, InterConfig>() {}
+
+	export interface InterOptions {
+		readonly certificate: string | Buffer;
+		readonly priv_key: string | Buffer;
+		readonly client_id: string;
+		readonly client_secret: string;
+		readonly scope: InterOAuthScopeType | InterOAuthScopeType[];
+		readonly sandbox?: boolean;
+		readonly base_url?: string;
+	}
+
+	export interface InterConfig {
+		readonly certificate: Redacted.Redacted<Buffer>;
+		readonly privKey: Redacted.Redacted<Buffer>;
+		readonly client_id: string;
+		readonly client_secret: Redacted.Redacted<string>;
+		readonly scope: InterOAuthScopeType | InterOAuthScopeType[];
+		readonly base_url: string;
+		readonly sandbox: boolean;
+	}
 
 	export const make = (options: InterOptions) => {
 		return Layer.effect(

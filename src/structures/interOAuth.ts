@@ -1,14 +1,13 @@
 import { Cache, Effect, Layer, Redacted, Schema } from "effect";
 import type { ParseError } from "effect/ParseResult";
-import type { InterConfig } from "$models/config";
 import { InterOAuthResponseJSON } from "$models/oauth";
 import type { HttpsRequestError } from "./httpRequest";
 import { httpsRequestEffect } from "./httpRequest";
-import { InterBaseConfig } from "./interBaseConfig";
+import { InterConfig } from "./interConfig";
 
 const DEFAULT_ROUTE = "/oauth/v2/token";
 
-const accessTokenService = (config: InterConfig) =>
+const accessTokenService = (config: InterConfig.InterConfig) =>
 	Effect.gen(function* () {
 		const response = yield* httpsRequestEffect(
 			"POST",
@@ -31,7 +30,7 @@ const accessTokenService = (config: InterConfig) =>
 export namespace InterCache {
 	export class Tag extends Effect.Tag("bancointer/InterCacheService")<
 		Tag,
-		Cache.Cache<InterConfig, Redacted.Redacted<string>, HttpsRequestError | ParseError>
+		Cache.Cache<InterConfig.InterConfig, Redacted.Redacted<string>, HttpsRequestError | ParseError>
 	>() {}
 
 	export const LAYER = Layer.effect(
@@ -45,7 +44,7 @@ export namespace InterCache {
 }
 
 export const getGlobalOAuthToken = Effect.gen(function* () {
-	const config = yield* InterBaseConfig.Tag;
+	const config = yield* InterConfig.Tag;
 	const cache = yield* InterCache.Tag;
 	return yield* cache.get(config);
 });

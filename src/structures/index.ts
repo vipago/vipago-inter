@@ -1,1 +1,1 @@
-export * as config from "./interBaseConfig";
+export * as config from "./interConfig";
