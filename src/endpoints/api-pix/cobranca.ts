@@ -1,9 +1,9 @@
 import { routeWithResponse, routeWithResponseAndParam } from "internal/httpClient";
 import {
 	ConsultarCobrancaResponseSchema,
-	type CriarCobrancaRequestSchema,
+	CriarCobrancaRequestSchema,
 	CriarCobrancaResponseSchema,
-	type PagarPixCobrancaRequestSchema,
+	PagarPixCobrancaRequestSchema,
 	PagarPixCobrancaResponseSchema,
 } from "$models/api-pix/cobranca";
 import { BASE_ROUTE, withSandboxVerification } from "./utils";
@@ -18,11 +18,7 @@ import { BASE_ROUTE, withSandboxVerification } from "./utils";
  * @param body - Dados da cobrança a ser criada
  * @returns Cobrança criada com TXID, QR Code e demais informações
  */
-export const criarCobranca = routeWithResponse<typeof CriarCobrancaRequestSchema.Type, typeof CriarCobrancaResponseSchema.Type>(
-	"POST",
-	`${BASE_ROUTE}/cob`,
-	CriarCobrancaResponseSchema,
-);
+export const criarCobranca = routeWithResponse("POST", `${BASE_ROUTE}/cob`, CriarCobrancaResponseSchema, CriarCobrancaRequestSchema);
 
 /**
  * Consulta uma cobrança PIX existente pelo TXID.
@@ -33,11 +29,7 @@ export const criarCobranca = routeWithResponse<typeof CriarCobrancaRequestSchema
  * @param txid - Identificador único da transação (TXID)
  * @returns Dados completos da cobrança consultada
  */
-export const consultarCobranca = routeWithResponseAndParam<never, typeof ConsultarCobrancaResponseSchema.Type>(
-	"GET",
-	txid => `${BASE_ROUTE}/cob/${txid}`,
-	ConsultarCobrancaResponseSchema,
-);
+export const consultarCobranca = routeWithResponseAndParam("GET", txid => `${BASE_ROUTE}/cob/${txid}`, ConsultarCobrancaResponseSchema);
 
 /**
  * Paga uma cobrança PIX existente.
@@ -54,9 +46,5 @@ export const consultarCobranca = routeWithResponseAndParam<never, typeof Consult
  * @returns Dados da cobrança após o pagamento
  */
 export const pagarPixCobranca = withSandboxVerification(
-	routeWithResponseAndParam<typeof PagarPixCobrancaRequestSchema.Type, typeof PagarPixCobrancaResponseSchema.Type>(
-		"POST",
-		txid => `${BASE_ROUTE}/cob/pagar/${txid}`,
-		PagarPixCobrancaResponseSchema,
-	),
+	routeWithResponseAndParam("POST", txid => `${BASE_ROUTE}/cob/pagar/${txid}`, PagarPixCobrancaResponseSchema, PagarPixCobrancaRequestSchema),
 );

@@ -9,6 +9,7 @@
  */
 
 import { Schema } from "effect";
+import { Currency } from "$models/global";
 
 export const DevedorCobranca = Schema.Union(
 	Schema.Struct({
@@ -42,10 +43,7 @@ export const DevedorCobranca = Schema.Union(
 });
 
 export const CalendarioCobranca = Schema.Struct({
-	expiracao: Schema.Int.pipe(
-		Schema.propertySignature,
-		Schema.withConstructorDefault(() => 600), // 10 minutos
-	).annotations({
+	expiracao: Schema.Int.annotations({
 		title: "Tempo de Expiração",
 		description: "Tempo em segundos até a expiração da cobrança",
 	}),
@@ -64,7 +62,7 @@ export const LocCobrancaRequest = Schema.Struct({
 		title: "ID da Location",
 		description: "Identificador numérico da location",
 	}),
-	tipoCob: Schema.Literal("cob", "cobv").annotations({
+	tipoCob: Schema.Literal("cob", "cobv").pipe(Schema.optional).annotations({
 		title: "Tipo de Cobrança",
 		description: "Tipo da cobrança: 'cob' para imediata ou 'cobv' para com vencimento",
 	}),
@@ -91,7 +89,7 @@ export const LocCobrancaResponse = Schema.Struct({
 });
 
 export const ValorCobranca = Schema.Struct({
-	original: Schema.BigDecimal.annotations({
+	original: Currency.Currency.annotations({
 		title: "Valor Original",
 		description: "Valor monetário original da cobrança em reais",
 	}),
@@ -136,7 +134,7 @@ export const CobrancaStatus = Schema.Literal("ATIVA", "CONCLUIDA", "REMOVIDA_PEL
 export const CriarCobrancaRequestSchema = Schema.Struct({
 	calendario: CalendarioCobranca.pick("expiracao").pipe(
 		Schema.propertySignature,
-		Schema.withConstructorDefault(() => CalendarioCobranca.make()),
+		Schema.withConstructorDefault(() => CalendarioCobranca.make({ expiracao: 3600 })), // 1 hora por padrão
 	),
 	devedor: DevedorCobranca,
 	loc: LocCobrancaRequest.pipe(Schema.optionalWith({ nullable: true })),
@@ -151,7 +149,10 @@ export const CriarCobrancaRequestSchema = Schema.Struct({
 		title: "Solicitação do Pagador",
 		description: "Texto livre para solicitação ao pagador",
 	}),
-	infoAdicionais: InfoAdicionaisCobranca,
+	infoAdicionais: InfoAdicionaisCobranca.pipe(
+		Schema.propertySignature,
+		Schema.withConstructorDefault(() => []),
+	),
 }).annotations({
 	title: "Criar Cobrança PIX - Requisição",
 	description: "Dados necessários para criar uma nova cobrança PIX imediata",
@@ -160,7 +161,7 @@ export const CriarCobrancaRequestSchema = Schema.Struct({
 
 export const CriarCobrancaResponseSchema = Schema.Struct({
 	devedor: DevedorCobranca,
-	loc: LocCobrancaResponse,
+	loc: LocCobrancaResponse.pipe(Schema.optionalWith({ nullable: true })),
 	location: Schema.String.pipe(Schema.optionalWith({ nullable: true })).annotations({
 		title: "Location da Cobrança",
 		description: "URL da location da cobrança criada",
@@ -202,7 +203,7 @@ export const ConsultarCobrancaResponseSchema = CriarCobrancaResponseSchema.annot
 });
 
 export const PagarPixCobrancaRequestSchema = Schema.Struct({
-	valor: Schema.Number.annotations({
+	valor: Currency.Currency.annotations({
 		title: "Valor do Pagamento",
 		description: "Valor a ser pago na cobrança PIX",
 	}),

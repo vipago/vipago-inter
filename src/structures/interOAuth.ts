@@ -1,4 +1,4 @@
-import { Cache, Effect, Layer, Redacted, Schema } from "effect";
+import { Cache, Effect, Layer as EffectLayer, Redacted, Schema } from "effect";
 import type { ParseError } from "effect/ParseResult";
 import { InterOAuthResponseJSON } from "$models/oauth";
 import type { HttpsRequestError } from "./httpRequest";
@@ -16,7 +16,7 @@ const accessTokenService = (config: InterConfig.InterConfig) =>
 				client_id: config.client_id,
 				client_secret: Redacted.value(config.client_secret),
 				grant_type: "client_credentials",
-				scope: config.scope,
+				scope: typeof config.scope === "string" ? config.scope : config.scope.join(" "),
 			}).toString(),
 			Redacted.value(config.certificate),
 			Redacted.value(config.privKey),
@@ -33,7 +33,7 @@ export namespace InterCache {
 		Cache.Cache<InterConfig.InterConfig, Redacted.Redacted<string>, HttpsRequestError | ParseError>
 	>() {}
 
-	export const LAYER = Layer.effect(
+	export const Layer = EffectLayer.effect(
 		Tag,
 		Cache.make({
 			capacity: 10,
