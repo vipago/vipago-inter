@@ -1,7 +1,11 @@
 import https from "node:https";
 import { Data, Effect } from "effect";
 
-export class HttpsRequestError extends Data.TaggedError("bancointer/HttpsRequestError")<{ cause: Error; response?: HttpsResponse }> {}
+export class HttpsRequestError extends Data.TaggedError("bancointer/HttpsRequestError")<{ cause: Error; response?: HttpsResponse }> {
+	override toString(): string {
+		return `HttpsRequestError: ${this.cause.message}${this.response ? `\nResponse: ${JSON.stringify(this.response)}` : ""}`;
+	}
+}
 
 export type HttpsResponse = {
 	statusCode: number;
@@ -42,7 +46,7 @@ export const httpsRequestEffect = (
 					resume(
 						Effect.fail(
 							new HttpsRequestError({
-								cause: new Error("Non 2xx status code"),
+								cause: new Error(`Non 2xx status code: ${finalResponse.statusCode}`),
 								response: finalResponse,
 							}),
 						),
@@ -57,6 +61,6 @@ export const httpsRequestEffect = (
 			resume(Effect.fail(new HttpsRequestError({ cause: error })));
 		});
 
-		req.write(typeof body === "string" ? body : JSON.stringify(body));
+		if (body) req.write(typeof body === "object" && headers["Content-Type"].toLowerCase() === "application/json" ? JSON.stringify(body) : body);
 		req.end();
 	});
