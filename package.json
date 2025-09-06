@@ -1,21 +1,13 @@
 {
 	"name": "vipago-inter",
-	"module": "./dist/index.cjs",
-	"main": "./dist/index.js",
-	"types": "./dist/index.d.ts",
 	"type": "module",
 	"private": true,
 	"exports": {
-		"types": "./dist/index.d.ts",
-		"import": "./dist/index.js",
-		"require": "./dist/index.cjs"
+		".": "./src/index.ts"
 	},
 	"scripts": {
 		"build": "bun run build.ts"
 	},
-	"files": [
-		"dist"
-	],
 	"devDependencies": {
 		"@biomejs/biome": "2.1.1",
 		"@types/bun": "^1.2.18",
