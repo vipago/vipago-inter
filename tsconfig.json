@@ -28,9 +28,9 @@
 
 
 		"paths": {
-			"$models/*": ["./models/*"],
-			"$endpoints/*": ["./endpoints/*"],
-			"$structures/*": ["./structures/*"]
+			"$models/*": ["./src/models/*"],
+			"$endpoints/*": ["./src/endpoints/*"],
+			"$structures/*": ["./src/structures/*"]
 		}
 	}
 }
