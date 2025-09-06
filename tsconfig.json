@@ -25,12 +25,5 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noPropertyAccessFromIndexSignature": false,
-
-
-		"paths": {
-			"$models/*": ["./src/models/*"],
-			"$endpoints/*": ["./src/endpoints/*"],
-			"$structures/*": ["./src/structures/*"]
-		}
 	}
 }

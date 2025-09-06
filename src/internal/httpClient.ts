@@ -1,8 +1,8 @@
 import { Effect, Redacted, Schema } from "effect/index";
-import { InterAPIError, InterAPIErrorSchema } from "$models/error";
-import { HttpsRequestError, httpsRequestEffect } from "$structures/httpRequest";
-import { InterConfig } from "$structures/interConfig";
-import { getGlobalOAuthToken } from "$structures/interOAuth";
+import { InterAPIError, InterAPIErrorSchema } from "../models/error";
+import { HttpsRequestError, httpsRequestEffect } from "../structures/httpRequest";
+import { InterConfig } from "../structures/interConfig";
+import { getGlobalOAuthToken } from "../structures/interOAuth";
 import type { FieldsWithContext } from "./fields";
 
 /** @internal **/
@@ -59,17 +59,17 @@ export const routeWithResponse =
 							// biome-ignore lint/style/noNonNullAssertion: This is safe because we check for response existence
 							err.response!.responseBody,
 						).pipe(
-							Effect.andThen(res => Effect.fail(new InterAPIError(res))),
-							Effect.catchTag("ParseError", parseErr => {
-								return Effect.fail(
-									new InterAPIError({
-										type: "ParseError",
-										title: "Failed to parse API response",
-										status: 500,
-										detail: `${parseErr.message}\n\n${err.response?.responseBody}`,
-									}),
-								);
+							Effect.mapBoth({
+								onSuccess: res => new InterAPIError(res),
+								onFailure: perr => new InterAPIError({
+									type: "ParseError",
+									title: "Failed to parse API response",
+									status: 500,
+									detail: `${perr.message}\n\n${err.response?.responseBody}`,
+								}),
 							}),
+							Effect.merge,
+							Effect.flip
 						),
 				),
 				Effect.andThen(res => res.responseBody),

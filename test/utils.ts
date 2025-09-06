@@ -1,9 +1,9 @@
 import { lstatSync } from "node:fs";
 import { BunFileSystem } from "@effect/platform-bun/index";
 import { Config, Effect, Layer, Logger, ManagedRuntime, Redacted, Schema } from "effect";
-import type { InterOAuthScopeType } from "$models/oauth";
-import { InterConfig } from "$structures/interConfig";
-import { InterCache } from "$structures/interOAuth";
+import type { InterOAuthScopeType } from "../src/models/oauth";
+import { InterConfig } from "../src/structures/interConfig";
+import { InterCache } from "../src/structures/interOAuth";
 
 const isValidPath = Schema.filter<Schema.SchemaClass<string, string, never>>((path: string) => {
 	const stats = lstatSync(path, { throwIfNoEntry: false });

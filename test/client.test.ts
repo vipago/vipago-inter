@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { BunFileSystem } from "@effect/platform-bun/index";
 import { Effect } from "effect";
-import { getGlobalOAuthToken, InterCache } from "$structures/interOAuth";
+import { getGlobalOAuthToken, InterCache } from "../src/structures/interOAuth";
 import { InterConfig } from "../src/structures/interConfig";
 import { makeConfigLayer, testRuntime } from "./utils";
 

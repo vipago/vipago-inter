@@ -1,6 +1,6 @@
 import { Cache, Effect, Layer as EffectLayer, Redacted, Schema } from "effect";
 import type { ParseError } from "effect/ParseResult";
-import { InterOAuthResponseJSON } from "$models/oauth";
+import { InterOAuthResponseJSON } from "../models/oauth";
 import type { HttpsRequestError } from "./httpRequest";
 import { httpsRequestEffect } from "./httpRequest";
 import { InterConfig } from "./interConfig";

@@ -9,7 +9,7 @@
  */
 
 import { Schema } from "effect";
-import { Currency } from "$models/global";
+import { Currency } from "../global";
 
 export const DevedorCobranca = Schema.Union(
 	Schema.Struct({

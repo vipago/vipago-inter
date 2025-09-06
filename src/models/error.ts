@@ -1,4 +1,4 @@
-import { Data, Schema } from "effect/index";
+import { Data, Schema } from "effect";
 
 export const InterAPIErrorViolacoes = Schema.Struct({
 	razao: Schema.String.pipe(Schema.optionalWith({ nullable: true })),

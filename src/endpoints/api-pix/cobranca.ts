@@ -1,11 +1,11 @@
-import { routeWithResponse, routeWithResponseAndParam } from "internal/httpClient";
+import { routeWithResponse, routeWithResponseAndParam } from "../../internal/httpClient";
 import {
 	ConsultarCobrancaResponseSchema,
 	CriarCobrancaRequestSchema,
 	CriarCobrancaResponseSchema,
 	PagarPixCobrancaRequestSchema,
 	PagarPixCobrancaResponseSchema,
-} from "$models/api-pix/cobranca";
+} from "../../models/api-pix/cobranca";
 import { BASE_ROUTE, withSandboxVerification } from "./utils";
 
 /**

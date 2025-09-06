@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { BigDecimal, Effect, Redacted, Schema } from "effect";
-import { consultarCobranca, criarCobranca, pagarPixCobranca } from "$endpoints/api-pix/cobranca";
-import { CriarCobrancaRequestSchema } from "$models/api-pix/cobranca";
-import { getGlobalOAuthToken } from "$structures/interOAuth";
+import { consultarCobranca, criarCobranca, pagarPixCobranca } from "../../src/endpoints/api-pix/cobranca";
+import { CriarCobrancaRequestSchema } from "../../src/models/api-pix/cobranca";
+import { getGlobalOAuthToken } from "../../src/structures/interOAuth";
 import { testRuntime } from "../utils";
 
 describe("Testes da API PIX", () => {

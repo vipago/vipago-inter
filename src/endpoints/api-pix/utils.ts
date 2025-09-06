@@ -1,5 +1,5 @@
 import { Effect } from "effect";
-import { InterConfig } from "$structures/interConfig";
+import { InterConfig } from "../../structures/interConfig";
 
 /** @internal **/
 export const BASE_ROUTE = "/pix/v2";

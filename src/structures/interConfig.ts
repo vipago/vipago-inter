@@ -1,6 +1,6 @@
 import { FileSystem } from "@effect/platform/FileSystem";
 import { Config, ConfigProvider, Context, Effect, Layer, pipe, Redacted } from "effect";
-import type { InterOAuthScopeType } from "$models/oauth";
+import type { InterOAuthScopeType } from "../models/oauth";
 
 export namespace InterConfig {
 	export class Tag extends Context.Tag("bancointer/InterConfig")<Tag, InterConfig>() {}

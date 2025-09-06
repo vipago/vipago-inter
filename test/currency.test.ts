@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { Currency } from "$models/global";
+import { Currency } from "../src/models/global";
 
 const currencies: [string, string][] = [
 	["123.456789", "123.46"],
