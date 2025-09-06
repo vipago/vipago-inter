@@ -10,7 +10,7 @@ export const routeWithResponse =
 	<Res, Req extends FieldsWithContext<ReqRequirements> = never, ReqRequirements = never>(
 		method: "POST" | "GET" | "PUT" | "DELETE" | "PATCH",
 		url: string,
-		responseSchema: Schema.Schema<Res, unknown, never>,
+		responseSchema: Schema.Schema<Res, any, never>,
 		requestSchema?: Schema.Struct<Req>,
 	) =>
 	(body?: Schema.Struct.Constructor<Req>) =>
@@ -83,7 +83,7 @@ export const routeWithResponseAndParam =
 	<Res, Req extends FieldsWithContext<ReqRequirements> = never, ReqRequirements = never, Param = string>(
 		method: "POST" | "GET" | "PUT" | "DELETE" | "PATCH",
 		url: (r: Param) => string,
-		responseSchema: Schema.Schema<Res, unknown, never>,
+		responseSchema: Schema.Schema<Res, any, never>,
 		requestSchema?: Schema.Struct<Req>,
 	) =>
 	(r: Param, body?: Schema.Struct.Constructor<Req>) =>
