@@ -13,7 +13,7 @@ export const routeWithResponse =
 		responseSchema: Schema.Schema<Res, any, never>,
 		requestSchema?: Schema.Struct<Req>,
 	) =>
-	(body?: Schema.Struct.Constructor<Req>) =>
+	(...[body]: ([Req] extends [never] ? [] : [body: Schema.Struct.Constructor<Req>])) =>
 		Effect.gen(function* () {
 			const bodyEncoded = body && requestSchema ? yield* Schema.encode(requestSchema)(requestSchema.make(body)) : undefined;
 			if (method === "GET" && bodyEncoded) {
@@ -86,5 +86,5 @@ export const routeWithResponseAndParam =
 		responseSchema: Schema.Schema<Res, any, never>,
 		requestSchema?: Schema.Struct<Req>,
 	) =>
-	(r: Param, body?: Schema.Struct.Constructor<Req>) =>
+	(r: Param, ...[body]: ([Req] extends [never] ? [] : [body: Schema.Struct.Constructor<Req>])) =>
 		routeWithResponse<Res, Req, ReqRequirements>(method, url(r), responseSchema, requestSchema)(body);
