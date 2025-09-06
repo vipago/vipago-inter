@@ -86,5 +86,5 @@ export const routeWithResponseAndParam =
 		responseSchema: Schema.Schema<Res, any, never>,
 		requestSchema?: Schema.Struct<Req>,
 	) =>
-	(r: Param, ...[body]: ([Req] extends [never] ? [] : [body: Schema.Struct.Constructor<Req>])) =>
-		routeWithResponse<Res, Req, ReqRequirements>(method, url(r), responseSchema, requestSchema)(body);
+	(r: Param, ...body: ([Req] extends [never] ? [] : [body: Schema.Struct.Constructor<Req>])) =>
+		routeWithResponse<Res, Req, ReqRequirements>(method, url(r), responseSchema, requestSchema)(...body);
