@@ -26,12 +26,11 @@
 		"noUnusedParameters": true,
 		"noPropertyAccessFromIndexSignature": false,
 
-		"baseUrl": "src",
 
 		"paths": {
-			"$models/*": ["models/*"],
-			"$endpoints/*": ["endpoints/*"],
-			"$structures/*": ["structures/*"]
+			"$models/*": ["./models/*"],
+			"$endpoints/*": ["./endpoints/*"],
+			"$structures/*": ["./structures/*"]
 		}
 	}
 }
